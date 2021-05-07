@@ -1,1 +1,1 @@
-worker: python botevrk
+worker: python botevrk.py
