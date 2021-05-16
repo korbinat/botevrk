@@ -23,7 +23,7 @@ def get_celebrations(message):
             keyboard.add(url_button)
 
             bot.send_message(message.from_user.id, a, reply_markup=keyboard)
-            bot.send_message(message.from_user.id, "==================")
+            bot.send_message(message.from_user.id, "𓃥𓃠𓃰𓃱𓃸𓃵𓃗𓃘𓃟𓆐𓆗𓅃")
     a = f"Это все мероприятия на {message.text}"
     bot.send_message(message.from_user.id, a)
 
