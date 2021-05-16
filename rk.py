@@ -1,14 +1,29 @@
 import telebot
 import openpyxl
 
+from telebot import types
+
 
 def get_celebrations(message):
     a = f'Мероприятия на {message.text}:' + '\n\n'
     bot.send_message(message.from_user.id, a)
     for row in range(1, fd.max_row + 1):
         if message.text[:3].lower() in fd[f"B{row}"].value:
-            a = '✧𓆏 ' + fd[f"A{row}"].value + ' 𓆏✧' + '\n\n' + 'Организаван: ' + fd[f"C{row}"].value
-            bot.send_message(message.from_user.id, a)
+            a = '✧𓆏 ' + fd[f"A{row}"].value + ' 𓆏✧' + '\n\n' + 'Организаван: ' + fd[
+                f"C{row}"].value
+            keyboard = types.InlineKeyboardMarkup()
+            event = fd[f"A{row}"].value
+            event = event.replace(" ", "%20", event.count(" "))
+            event = event.replace(":", "%3A", event.count(":"))
+            event = event.replace(",", "%2C", event.count(","))
+            event = event.replace('"', "%20", event.count('"'))
+            event = fr'https://yandex.ru/search?text=РК%20{event}'
+            url_button = types.InlineKeyboardButton(text="Подробнее",
+                                                    url=event)
+            keyboard.add(url_button)
+
+            bot.send_message(message.from_user.id, a, reply_markup=keyboard)
+            bot.send_message(message.from_user.id, "==================")
     a = f"Это все мероприятия на {message.text}"
     bot.send_message(message.from_user.id, a)
 
